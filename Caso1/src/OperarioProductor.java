@@ -1,7 +1,7 @@
 public class OperarioProductor extends Thread{
     TipoProducto tipoOperario;
     int numProductos;
-    public Deposito depositoProduccion;
+    Deposito depositoProduccion;
 
     public OperarioProductor(TipoProducto tipoOperario, int numProductos, Deposito depositoProduccion){
         this.tipoOperario = tipoOperario;
@@ -9,15 +9,20 @@ public class OperarioProductor extends Thread{
         this.depositoProduccion = depositoProduccion;
     }
     public void run(){
-        Producto producto;
-        for(int i = 0; i < numProductos; i++){
-            if (i==numProductos-1 && tipoOperario==TipoProducto.FIN_A){
-                producto = new Producto(TipoProducto.FIN_A);
+        while(numProductos>0){
+            Producto producto;
+            numProductos--;
+            if (numProductos==numProductos+1 && tipoOperario==TipoProducto.FIN_A){
+                producto = new Producto();
+                producto.inicializar(TipoProducto.FIN_A);
+
                 
-            }else if (i==numProductos-1 && tipoOperario==TipoProducto.FIN_B){
-                producto = new Producto(TipoProducto.FIN_B);
+            }else if (numProductos==numProductos+1 && tipoOperario==TipoProducto.FIN_B){
+                producto = new Producto();
+                producto.inicializar(TipoProducto.FIN_B);
             }else{
-                producto = new Producto(tipoOperario);
+                producto = new Producto();
+                producto.inicializar(tipoOperario);
             }
             depositoProduccion.almacenarProducto(producto);
         }

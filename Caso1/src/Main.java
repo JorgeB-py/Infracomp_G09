@@ -12,6 +12,7 @@ public class Main {
         scanner.close();
         Deposito depositoProduccion = new Deposito(capacidadDepositoProduccion);
         Deposito depositoDistribucion = new Deposito(capacidadDepositoDistribucion);
+        CintaTransportadora cintaTransportadora = new CintaTransportadora();
 
 
         OperarioProductor op1 = new OperarioProductor(TipoProducto.A, cantidadProductos/2, depositoProduccion);
@@ -26,8 +27,8 @@ public class Main {
         OperarioDistribuidor od3 = new OperarioDistribuidor(TipoProducto.B, depositoDistribucion);
         OperarioDistribuidor od4 = new OperarioDistribuidor(TipoProducto.B, depositoDistribucion);
 
-        OperarioInterno opInterno = new OperarioInterno(depositoProduccion, depositoDistribucion, TipoOperario.A);
-        OperarioInterno opInterno2 = new OperarioInterno(depositoProduccion, depositoDistribucion, TipoOperario.B);
+        OperarioInterno opInterno = new OperarioInterno(depositoProduccion, depositoDistribucion, TipoOperario.A, cintaTransportadora);
+        OperarioInterno opInterno2 = new OperarioInterno(depositoProduccion, depositoDistribucion, TipoOperario.B, cintaTransportadora);
 
         op1.start();
         op2.start();

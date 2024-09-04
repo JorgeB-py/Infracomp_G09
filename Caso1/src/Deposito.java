@@ -26,14 +26,8 @@ public class Deposito {
             if(producto.tipoProducto == tipoProducto){
                 productos.remove(producto);
                 capacidad++;
-                notify();
+                notifyAll();
                 return producto;
-            }else{
-                try {
-                    wait();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
             }
         }
         return null;

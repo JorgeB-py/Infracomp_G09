@@ -5,13 +5,14 @@ public class OperarioInterno extends Thread{
 
     Deposito depositoProduccion;
     Deposito depositoDistribucion;
-    public static CintaTransportadora cintaTransportadora = new CintaTransportadora();
+    CintaTransportadora cintaTransportadora;
 
-    public OperarioInterno(Deposito depositoProduccion, Deposito depositoDistribucion, TipoOperario tipoOperario){
+    public OperarioInterno(Deposito depositoProduccion, Deposito depositoDistribucion, TipoOperario tipoOperario, CintaTransportadora cintaTransportadora){
         this.numProductosFin = 0;
         this.depositoDistribucion = depositoDistribucion;
         this.depositoProduccion = depositoProduccion;
         this.tipoOperario = tipoOperario;
+        this.cintaTransportadora = cintaTransportadora;
     }
 
     public void run(){
@@ -19,7 +20,6 @@ public class OperarioInterno extends Thread{
             if(tipoOperario==TipoOperario.A){
                 moverACinta();
             }else{
-                cintaTransportadora.retirarDeCinta();
                 moverADeposito();
             }
         }

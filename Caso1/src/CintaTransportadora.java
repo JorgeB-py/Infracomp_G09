@@ -7,15 +7,21 @@ public class CintaTransportadora {
     public CintaTransportadora(){
     }
 
-    public synchronized void colocarEnCinta(Producto producto){
-        productos.addLast(producto);
-        Thread.yield();
+    public void colocarEnCinta(Producto producto){
+        while (productos.size()==1){
+            Thread.yield();
+        }
+        synchronized(productos){
+            productos.add(producto);
+        }
     }
 
-    public synchronized Producto retirarDeCinta(){
+    public Producto retirarDeCinta(){
         while(productos.isEmpty()){
             Thread.yield();
         }
-        return productos.removeFirst();
+        synchronized(productos){
+            return productos.removeFirst();
+        }
     }
 }
