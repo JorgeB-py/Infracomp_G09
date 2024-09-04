@@ -10,15 +10,21 @@ public class Deposito {
 
     public synchronized void almacenarProducto(Producto producto){
         productos.addLast(producto);
+        capacidad--;
     }
 
     public synchronized Producto retirarProducto(TipoProducto tipoProducto){
         for(Producto producto: productos){
             if(producto.tipoProducto == tipoProducto){
                 productos.remove(producto);
+                capacidad++;
+                notify();
                 return producto;
             }
         }
         return null;
+    }
+    public synchronized boolean hayEspacio(){
+        return capacidad>0;
     }
 }

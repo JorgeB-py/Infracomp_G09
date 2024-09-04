@@ -2,12 +2,14 @@ public class OperarioInterno extends Thread{
 
     int numProductosFin;
 
-    public static Deposito depositoProduccion;
-    public static Deposito depositoDistribucion;
-    public static CintaTransportadora cintaTransportadora;
+    Deposito depositoProduccion;
+    Deposito depositoDistribucion;
+    public static CintaTransportadora cintaTransportadora = new CintaTransportadora();
 
-    public OperarioInterno(){
+    public OperarioInterno(Deposito depositoProduccion, Deposito depositoDistribucion){
         this.numProductosFin = 0;
+        this.depositoDistribucion = depositoDistribucion;
+        this.depositoProduccion = depositoProduccion;
     }
 
     public void run(){

@@ -1,10 +1,12 @@
 public class OperarioDistribuidor extends Thread{
-    TipoOperario tipoOperario;
+    TipoProducto tipoOperario;
+    Deposito depositoDistribucion;
 
-    public OperarioDistribuidor(TipoOperario tipoOperario){
+    public OperarioDistribuidor(TipoProducto tipoOperario, Deposito depositoDistribucion){
         this.tipoOperario = tipoOperario;
+        this.depositoDistribucion = depositoDistribucion;
     }
     public void run(){
-        
+
     }
 }
