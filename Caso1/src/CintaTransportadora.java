@@ -9,9 +9,15 @@ public class CintaTransportadora {
 
     public synchronized void colocarEnCinta(Producto producto){
         productos.addLast(producto);
+        Thread.yield();
     }
 
     public synchronized Producto retirarDeCinta(){
-        return productos.removeFirst();
+        if (!productos.isEmpty()){
+            return productos.removeFirst();
+        }else{
+            Thread.yield();
+            return productos.removeFirst();
+        }
     }
 }
