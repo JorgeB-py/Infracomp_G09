@@ -14,11 +14,14 @@ public class Main {
         Deposito depositoDistribucion = new Deposito(capacidadDepositoDistribucion);
         CintaTransportadora cintaTransportadora = new CintaTransportadora();
 
+        int cantidadProductosA = cantidadProductos / 2;
+        int cantidadProductosB = cantidadProductos / 2;
 
-        OperarioProductor op1 = new OperarioProductor(TipoProducto.A, cantidadProductos/2, depositoProduccion);
-        OperarioProductor op2 = new OperarioProductor(TipoProducto.A, cantidadProductos/2, depositoProduccion);
-        OperarioProductor op3 = new OperarioProductor(TipoProducto.B, cantidadProductos/2, depositoProduccion);
-        OperarioProductor op4 = new OperarioProductor(TipoProducto.B, cantidadProductos/2, depositoProduccion);
+
+        OperarioProductor op1 = new OperarioProductor(TipoProducto.A, cantidadProductosA/2, depositoProduccion);
+        OperarioProductor op2 = new OperarioProductor(TipoProducto.A, cantidadProductosA/2, depositoProduccion);
+        OperarioProductor op3 = new OperarioProductor(TipoProducto.B, cantidadProductosB/2, depositoProduccion);
+        OperarioProductor op4 = new OperarioProductor(TipoProducto.B, cantidadProductosB/2, depositoProduccion);
 
         
 

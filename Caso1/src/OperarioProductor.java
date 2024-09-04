@@ -11,20 +11,15 @@ public class OperarioProductor extends Thread{
     public void run(){
         while(numProductos>0){
             Producto producto;
-            numProductos--;
-            if (numProductos==numProductos+1 && tipoOperario==TipoProducto.FIN_A){
-                producto = new Producto();
-                producto.inicializar(TipoProducto.FIN_A);
-
-                
-            }else if (numProductos==numProductos+1 && tipoOperario==TipoProducto.FIN_B){
-                producto = new Producto();
-                producto.inicializar(TipoProducto.FIN_B);
+            if (numProductos==1 && tipoOperario==TipoProducto.A){
+                producto = new Producto(TipoProducto.FIN_A);
+            }else if (numProductos==1 && tipoOperario==TipoProducto.B){
+                producto = new Producto(TipoProducto.FIN_B);
             }else{
-                producto = new Producto();
-                producto.inicializar(tipoOperario);
+                producto = new Producto(tipoOperario);
             }
             depositoProduccion.almacenarProducto(producto);
+            numProductos--;
         }
     }
 }
