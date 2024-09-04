@@ -10,6 +10,13 @@ public class Deposito {
     }
 
     public synchronized void almacenarProducto(Producto producto){
+        while(!hayEspacio()){
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
         productos.addLast(producto);
         capacidad--;
     }

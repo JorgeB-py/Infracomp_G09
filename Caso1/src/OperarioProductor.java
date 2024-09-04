@@ -19,14 +19,7 @@ public class OperarioProductor extends Thread{
             }else{
                 producto = new Producto(tipoOperario);
             }
-            while(!depositoProduccion.hayEspacio()){
-                try {
-                    depositoProduccion.wait();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
             depositoProduccion.almacenarProducto(producto);
-            }
         }
     }
 }

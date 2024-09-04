@@ -14,10 +14,10 @@ public class Main {
         Deposito depositoDistribucion = new Deposito(capacidadDepositoDistribucion);
 
 
-        OperarioProductor op1 = new OperarioProductor(TipoProducto.A, cantidadProductos, depositoProduccion);
-        OperarioProductor op2 = new OperarioProductor(TipoProducto.A, cantidadProductos, depositoProduccion);
-        OperarioProductor op3 = new OperarioProductor(TipoProducto.B, cantidadProductos, depositoProduccion);
-        OperarioProductor op4 = new OperarioProductor(TipoProducto.B, cantidadProductos, depositoProduccion);
+        OperarioProductor op1 = new OperarioProductor(TipoProducto.A, cantidadProductos/2, depositoProduccion);
+        OperarioProductor op2 = new OperarioProductor(TipoProducto.A, cantidadProductos/2, depositoProduccion);
+        OperarioProductor op3 = new OperarioProductor(TipoProducto.B, cantidadProductos/2, depositoProduccion);
+        OperarioProductor op4 = new OperarioProductor(TipoProducto.B, cantidadProductos/2, depositoProduccion);
 
         
 

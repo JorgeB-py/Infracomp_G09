@@ -13,11 +13,9 @@ public class CintaTransportadora {
     }
 
     public synchronized Producto retirarDeCinta(){
-        if (!productos.isEmpty()){
-            return productos.removeFirst();
-        }else{
+        while(productos.isEmpty()){
             Thread.yield();
-            return productos.removeFirst();
         }
+        return productos.removeFirst();
     }
 }
