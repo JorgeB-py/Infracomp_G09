@@ -9,17 +9,17 @@ public class OperarioProductor extends Thread{
         this.depositoProduccion = depositoProduccion;
     }
     public void run(){
-        while(numProductos>0){
+        while(numProductos>=0){
             Producto producto;
-            if (numProductos==1 && tipoOperario==TipoProducto.A){
+            if (numProductos==0 && tipoOperario==TipoProducto.A){
                 producto = new Producto(TipoProducto.FIN_A);
-            }else if (numProductos==1 && tipoOperario==TipoProducto.B){
+            }else if (numProductos==0 && tipoOperario==TipoProducto.B){
                 producto = new Producto(TipoProducto.FIN_B);
             }else{
                 producto = new Producto(tipoOperario);
             }
-            depositoProduccion.almacenarProducto(producto);
             numProductos--;
+            depositoProduccion.almacenarProducto(producto);
         }
     }
 }

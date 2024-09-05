@@ -1,6 +1,6 @@
 public class OperarioInterno extends Thread{
 
-    int numProductosFin;
+    public static int numProductosFin=0;
     TipoOperario tipoOperario;
 
     Deposito depositoProduccion;
@@ -8,7 +8,6 @@ public class OperarioInterno extends Thread{
     CintaTransportadora cintaTransportadora;
 
     public OperarioInterno(Deposito depositoProduccion, Deposito depositoDistribucion, TipoOperario tipoOperario, CintaTransportadora cintaTransportadora){
-        this.numProductosFin = 0;
         this.depositoDistribucion = depositoDistribucion;
         this.depositoProduccion = depositoProduccion;
         this.tipoOperario = tipoOperario;
@@ -28,14 +27,14 @@ public class OperarioInterno extends Thread{
     public Producto moverACinta(){
         Producto producto=depositoProduccion.retirarProducto();
         cintaTransportadora.colocarEnCinta(producto);
-        if (producto.tipoProducto==TipoProducto.FIN_A || producto.tipoProducto==TipoProducto.FIN_B){
-            numProductosFin++;
-        }
         return producto;
     }
 
     public Producto moverADeposito(){
         Producto producto=cintaTransportadora.retirarDeCinta();
+        if (producto.tipoProducto==TipoProducto.FIN_A || producto.tipoProducto==TipoProducto.FIN_B){
+            numProductosFin++;
+        }
         depositoDistribucion.almacenarProducto(producto);
         return producto;
     }

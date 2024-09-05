@@ -18,6 +18,7 @@ public class Deposito {
             }
         }
         productos.addLast(producto);
+        notify();
         capacidad--;
     }
 
@@ -26,26 +27,29 @@ public class Deposito {
             if(producto.tipoProducto == tipoProducto){
                 productos.remove(producto);
                 capacidad++;
-                notifyAll();
+                notify();
                 return producto;
             }
         }
+        notify();
         return null;
     }
 
-    public synchronized Producto retirarProducto(){
+    public Producto retirarProducto(){
         if (!productos.isEmpty()){
-            Producto producto = productos.removeFirst();
-            capacidad++;
-            notifyAll();
-            return producto;
-        }else{
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            synchronized(this){
+                Producto producto = productos.removeFirst();
+                capacidad++;
+                notify();
+                return producto;
         }
-        return productos.removeFirst();
+        }else{
+            while(productos.isEmpty()){
+                Thread.yield();
+        }
+        synchronized(this){
+            return productos.removeFirst();
+        }
     }
         
     }

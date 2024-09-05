@@ -11,17 +11,13 @@ public class CintaTransportadora {
         while (productos.size()==1){
             Thread.yield();
         }
-        synchronized(productos){
-            productos.add(producto);
-        }
+        productos.add(producto);
     }
 
     public Producto retirarDeCinta(){
-        while(productos.isEmpty()){
+        while (productos.isEmpty()){
             Thread.yield();
         }
-        synchronized(productos){
-            return productos.removeFirst();
-        }
+        return productos.removeFirst();
     }
 }
