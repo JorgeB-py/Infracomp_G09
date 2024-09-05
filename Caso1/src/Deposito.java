@@ -3,73 +3,77 @@ import java.util.List;
 
 public class Deposito {
     int capacidad;
+    List<Producto> productosA = new ArrayList<Producto>();
+    List<Producto> productosB = new ArrayList<Producto>();
     List<Producto> productos = new ArrayList<Producto>();
 
     public Deposito(int capacidad){
         this.capacidad=capacidad;
     }
 
-    public synchronized void almacenarProducto(Producto producto){
+    public synchronized Producto almacenarProducto(Producto producto){
         while(!hayEspacio()){
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            return null;
         }
-        productos.addLast(producto);
+        if (producto.tipoProducto==TipoProducto.A || producto.tipoProducto==TipoProducto.FIN_A){
+            productosA.add(producto);
+        }else{
+            productosB.add(producto);
+        }
+        productos.add(producto);
         capacidad--;
-        notify();
+        notifyAll();
+        return producto;
     }
 
     public synchronized Producto retirarProducto(TipoProducto tipoProducto){
-        while(!hayProducto(tipoProducto)){
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        if (tipoProducto==TipoProducto.A){
+            while(productosA.size()==0){
+                try {
+                    wait();
+                } catch (InterruptedException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
             }
-        }
-        for(Producto producto: productos){
-            if(producto.tipoProducto == tipoProducto){
-                productos.remove(producto);
-                capacidad++;
-                notify();
-                return producto;
+            Producto producto = productosA.removeFirst();
+            capacidad++;
+            notifyAll();
+            return producto;
+        }else{
+            while(productosB.size()==0){
+                try {
+                    wait();
+                } catch (InterruptedException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
             }
+            Producto producto = productosB.removeFirst();
+            capacidad++;
+            notifyAll();
+            return producto;
         }
-        return null;
     }
 
-    public Producto retirarProducto(){
-        if (!productos.isEmpty()){
-            synchronized(this){
-                Producto producto = productos.remove(0);
-                capacidad++;
-                notify();
-                return producto;
+    public synchronized Producto retirarProducto(){
+        if (productos.size()==0){
+            return null;
         }
-        }else{
-            while(productos.isEmpty()){
-                Thread.yield();
-        }
-        synchronized(this){
-            return productos.remove(0);
-        }
-    }
-        
+        Producto producto = productos.remove(0);
+        capacidad++;
+        notifyAll();
+        return producto;
     }
 
     public synchronized boolean hayEspacio(){
         return capacidad>0;
     }
 
-    public synchronized boolean hayProducto(TipoProducto tipoProducto){
-        for(Producto producto: productos){
-            if(producto.tipoProducto == tipoProducto){
-                return true;
-            }
-        }
-        return false;
+    public synchronized boolean hayA(){
+        return productosA.size()>0;
+    }
+    public synchronized boolean hayB(){
+        return productosB.size()>0;
     }
 }

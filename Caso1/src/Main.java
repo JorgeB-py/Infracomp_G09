@@ -18,9 +18,9 @@ public class Main {
         int cantidadProductosB = cantidadProductos / 2;
 
 
-        OperarioProductor op1 = new OperarioProductor(TipoProducto.A, cantidadProductosA/2, depositoProduccion);
+        OperarioProductor op1 = new OperarioProductor(TipoProducto.A, (cantidadProductosA/2)+(cantidadProductosA%2), depositoProduccion);
         OperarioProductor op2 = new OperarioProductor(TipoProducto.A, cantidadProductosA/2, depositoProduccion);
-        OperarioProductor op3 = new OperarioProductor(TipoProducto.B, cantidadProductosB/2, depositoProduccion);
+        OperarioProductor op3 = new OperarioProductor(TipoProducto.B, (cantidadProductosB/2)+(cantidadProductosB%2), depositoProduccion);
         OperarioProductor op4 = new OperarioProductor(TipoProducto.B, cantidadProductosB/2, depositoProduccion);
 
         
@@ -37,11 +37,12 @@ public class Main {
         op2.start();
         op3.start();
         op4.start();
-        opInterno.start();
-        opInterno2.start();
         od1.start();
         od2.start();
         od3.start();
         od4.start();
+        opInterno.start();
+        opInterno2.start();
+        
     }
 }

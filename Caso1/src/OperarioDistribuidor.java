@@ -8,9 +8,26 @@ public class OperarioDistribuidor extends Thread{
     }
 
     public void run(){
-        while(OperarioInterno.numProductosFin<4){
-            Producto producto = depositoDistribucion.retirarProducto(tipoOperario);
-            System.out.println("Producto retirado: "+producto.tipoProducto);
+        if(tipoOperario==TipoProducto.A){
+            int numA=1;
+            while(numA==1){
+                Producto producto=depositoDistribucion.retirarProducto(TipoProducto.A);
+                if (producto.tipoProducto==TipoProducto.FIN_A){
+                    numA++;
+                }else{
+                    System.out.println("Producto A retirado");
+                }
+            }
+        }else{
+            int numB=1;
+            while(numB==1){
+                Producto producto=depositoDistribucion.retirarProducto(TipoProducto.B);
+                if(producto.tipoProducto==TipoProducto.FIN_B){
+                    numB++;
+                }else{
+                    System.out.println("Producto B retirado");
+                }
+            }
         }
         
     }

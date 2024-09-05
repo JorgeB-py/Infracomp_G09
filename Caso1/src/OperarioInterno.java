@@ -1,6 +1,7 @@
 public class OperarioInterno extends Thread{
 
-    public static int numProductosFin=0;
+    int numProductosFinA=0;
+    int numProductosFinB=0;
     TipoOperario tipoOperario;
 
     Deposito depositoProduccion;
@@ -15,30 +16,50 @@ public class OperarioInterno extends Thread{
     }
 
     public void run(){
-        while(numProductosFin<4){
-            if(tipoOperario==TipoOperario.A){
-                moverACinta();
-            }else{
-                moverADeposito();
+        while (numProductosFinA<2 || numProductosFinB<2){
+        if (tipoOperario==TipoOperario.A){
+                Producto producto=depositoProduccion.retirarProducto();
+                while (producto==null){
+                    Thread.yield();
+                    producto=depositoProduccion.retirarProducto();
+                }
+                if ((producto.tipoProducto==TipoProducto.FIN_A)){
+                    numProductosFinA++;
+                }else if (producto.tipoProducto==TipoProducto.FIN_B){
+                    numProductosFinB++;
+                }
+                moverACinta(producto);
+        }else{
+                Producto producto=cintaTransportadora.retirarDeCinta();
+                while (producto==null){
+                    Thread.yield();
+                    producto=cintaTransportadora.retirarDeCinta();
+                }
+                if (producto.tipoProducto==TipoProducto.FIN_A){
+                    numProductosFinA++;
+                }else if (producto.tipoProducto==TipoProducto.FIN_B){
+                    numProductosFinB++;
+                }
+                moverADeposito(producto);
             }
         }
     }
 
-    public Producto moverACinta(){
-        Producto producto=depositoProduccion.retirarProducto();
-        if (producto.tipoProducto == TipoProducto.FIN_A || producto.tipoProducto == TipoProducto.FIN_B) {
-            return producto;
+    public Producto moverACinta(Producto producto){
+        boolean espera = cintaTransportadora.colocarEnCinta(producto);
+        while(!espera){
+            Thread.yield();
+            espera = cintaTransportadora.colocarEnCinta(producto);
         }
-        cintaTransportadora.colocarEnCinta(producto);
         return producto;
     }
 
-    public Producto moverADeposito(){
-        Producto producto=cintaTransportadora.retirarDeCinta();
-        if (producto.tipoProducto==TipoProducto.FIN_A || producto.tipoProducto==TipoProducto.FIN_B){
-            numProductosFin++;
+    public Producto moverADeposito(Producto producto){
+        Producto esperar=depositoDistribucion.almacenarProducto(producto);
+        while(esperar==null){
+            Thread.yield();
+            esperar=depositoDistribucion.almacenarProducto(producto);
         }
-        depositoDistribucion.almacenarProducto(producto);
         return producto;
     }
     
