@@ -4,7 +4,7 @@ import java.util.List;
 public class CintaTransportadora {
     List<Producto> productos = new ArrayList<>();
 
-    public CintaTransportadora() {
+    public CintaTransportadora(){
     }
 
     public boolean colocarEnCinta(Producto producto){
@@ -16,10 +16,9 @@ public class CintaTransportadora {
     }
 
     public synchronized Producto retirarDeCinta(){
-        Producto producto = productos.remove(0);
         if(productos.isEmpty()){
             return null;
         }
-        return producto;
+        return productos.remove(0);
     }
 }
