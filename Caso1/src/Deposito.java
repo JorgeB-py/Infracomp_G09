@@ -41,23 +41,18 @@ public class Deposito {
         return null;
     }
 
-    public Producto retirarProducto(){
-        if (!productos.isEmpty()){
-            synchronized(this){
-                Producto producto = productos.remove(0);
-                capacidad++;
-                notify();
-                return producto;
+    public synchronized Producto retirarProducto(){
+        while (productos.isEmpty()){
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
-        }else{
-            while(productos.isEmpty()){
-                Thread.yield();
-        }
-        synchronized(this){
-            return productos.remove(0);
-        }
-    }
-        
+        Producto producto = productos.remove(0);
+        capacidad++;
+        notifyAll(); 
+        return producto;
     }
 
     public synchronized boolean hayEspacio(){
