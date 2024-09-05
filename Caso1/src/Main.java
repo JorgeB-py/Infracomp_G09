@@ -14,7 +14,7 @@ public class Main {
         Deposito depositoDistribucion = new Deposito(capacidadDepositoDistribucion);
         CintaTransportadora cintaTransportadora = new CintaTransportadora();
 
-        int cantidadProductosA = cantidadProductos / 2;
+        int cantidadProductosA = (cantidadProductos / 2)+(cantidadProductos % 2);
         int cantidadProductosB = cantidadProductos / 2;
 
 
