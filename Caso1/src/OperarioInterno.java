@@ -45,22 +45,20 @@ public class OperarioInterno extends Thread{
         }
     }
 
-    public Producto moverACinta(Producto producto){
+    public void moverACinta(Producto producto){
         boolean espera = cintaTransportadora.colocarEnCinta(producto);
         while(!espera){
             Thread.yield();
             espera = cintaTransportadora.colocarEnCinta(producto);
         }
-        return producto;
     }
 
-    public Producto moverADeposito(Producto producto){
+    public void moverADeposito(Producto producto){
         Producto esperar=depositoDistribucion.almacenarProducto(producto);
         while(esperar==null){
             Thread.yield();
             esperar=depositoDistribucion.almacenarProducto(producto);
         }
-        return producto;
     }
     
 }
