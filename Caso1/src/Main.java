@@ -37,11 +37,11 @@ public class Main {
         op2.start();
         op3.start();
         op4.start();
+        opInterno.start();
+        opInterno2.start();
         od1.start();
         od2.start();
         od3.start();
         od4.start();
-        opInterno.start();
-        opInterno2.start();
     }
 }

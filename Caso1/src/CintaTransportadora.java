@@ -18,6 +18,6 @@ public class CintaTransportadora {
         while (productos.isEmpty()){
             Thread.yield();
         }
-        return productos.removeFirst();
+        return productos.remove(0);
     }
 }

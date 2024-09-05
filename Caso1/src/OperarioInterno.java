@@ -26,6 +26,9 @@ public class OperarioInterno extends Thread{
 
     public Producto moverACinta(){
         Producto producto=depositoProduccion.retirarProducto();
+        if (producto.tipoProducto == TipoProducto.FIN_A || producto.tipoProducto == TipoProducto.FIN_B) {
+            return producto;
+        }
         cintaTransportadora.colocarEnCinta(producto);
         return producto;
     }

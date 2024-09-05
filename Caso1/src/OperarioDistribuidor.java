@@ -8,7 +8,7 @@ public class OperarioDistribuidor extends Thread{
     }
 
     public void run(){
-        while(depositoDistribucion.hayProducto(tipoOperario)){
+        while(OperarioInterno.numProductosFin<4){
             Producto producto = depositoDistribucion.retirarProducto(tipoOperario);
             System.out.println("Producto retirado: "+producto.tipoProducto);
         }
