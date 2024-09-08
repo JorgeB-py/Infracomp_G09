@@ -1,3 +1,3 @@
 public enum TipoOperario {
-    A, B
+    PRODUCCION, DISTRIBUCION
 }
