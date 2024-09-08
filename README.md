@@ -6,6 +6,9 @@ Caso 1 infracomp
 - Jorge Bustamante, 202210581
 - Paul Paffen, 202222496
 
+## Cómo ejecutar
+Dentro del directorio Caso 1 se encuantra la clase Fabrica `.Caso 1/Fabrica` la cual contiene el *main* del proyecto. Se debe ejecutar desde ahí.
+
 ## Entendimiento del Problema
 El problema presentado consiste en modelar una arquitectura de concurrencia en una fábrica mediante el uso de hilos (*threads*), donde se coordina la producción y distribución de dos tipos de productos, "A" y "B". En la fábrica, los operarios productores son responsables de crear productos, los cuales deben ser almacenados temporalmente en un depósito de producción antes de ser transportados a un depósito de distribución a través de una cinta transportadora. Los operarios distribuidores, por su parte, son los encargados de retirar estos productos del depósito de distribución para llevarlos a su destino final.
 
@@ -15,8 +18,7 @@ La correcta sincronización entre los hilos es crucial, especialmente consideran
 
 ## Arquitectura General de la Solución
 Para la solución se ha diseñado el siguiente Modelo Conceptual. (Figura 1)
-![Modelo Conceptual](https://github.com/user-attachments/assets/ab3121d1-1dd5-4cd4-8d5b-388ac834caab)
-Figura 1. Modelo Conceptual
+![Caso 1 - Modelo Conceptual](https://github.com/user-attachments/assets/5d44c032-baad-4548-842a-b81596f5d35a)
 
 ## Estrategias de Solución
 Para abordar el problema, se han diseñado las siguientes estrategias:
